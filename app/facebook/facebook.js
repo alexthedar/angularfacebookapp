@@ -31,19 +31,27 @@ angular.module('AngFBApp.facebook', ['ngRoute', 'ngFacebook'])
 
 //controller for facebook.html
 .controller('facebookCtrl', ['$scope','$facebook',function($scope, $facebook) {
+
+  //login initial false
   $scope.isLoggedIn = false;
+
+  //login
   $scope.login = function(){
     $facebook.login().then(function(){
       $scope.isLoggedIn = true;
       refresh();
     })
   }
+
+  //logout
   $scope.logout = function(){
     $facebook.logout().then(function(){
       $scope.isLoggedIn = false;
       refresh();
     })
   }
+
+  //refresh logs in pulls data from facebook and then reloads page
   function refresh(){
     $facebook.api("/me",{fields: 'id, name, first_name, last_name, age_range, link, gender, locale, email'}).then(function(response){
       $scope.welcomeMsg = "Welcome " + response.name;
@@ -64,6 +72,18 @@ angular.module('AngFBApp.facebook', ['ngRoute', 'ngFacebook'])
     });
   }
 
+  //post status
+  $scope.postStatus = function(){
+    var myPost = this.myPost;
+    console.log(myPost);
+    $facebook.api('/me/feed', 'post', {message: myPost}).then(function(response){
+      $scope.msg="Thanks for posting";
+      console.log('here')
+      refresh();
+    });
+  }
+
+  //force function so that data loads
   refresh();
 
 }]);
