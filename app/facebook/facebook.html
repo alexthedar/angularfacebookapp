@@ -43,14 +43,11 @@
       </form>
       <br />
       <br />
-      <div ng-repeat="post in posts" class="stbody">
-        <div class="well row">
-          <blockquote>
-            <img ng-src="{{picture}}" />
-            <p>{{post.message}} {{post.image}}</p>
-            <small> <cite title="Source Title">{{post.updated_time}}</cite></small>
-          </blockquote>
-        </div>
+      <div ng-repeat="post in posts">
+        <blockquote>
+          <img ng-src="{{picture}}" />
+          <p>{{post.message}} {{post.image}}</p>
+        </blockquote>
       </div>
     </div>
   </div>
